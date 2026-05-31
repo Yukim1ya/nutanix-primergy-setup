@@ -137,7 +137,21 @@ can't access tty; job control turned off
 - 約7GBのため書き込みに20〜30分かかる
 - 実行中は何も表示されない。`完了` が表示されれば成功
 
-**結果**: 作業中
+**結果**: ✅ 成功（書き込み完了）
+
+**補足**: 書き込み完了後、Windows PC からUSBが認識されなくなるが**これは正常**。  
+rawイメージはWindowsのファイルシステム（FAT32/NTFS）ではないため、エクスプローラーから見えない。  
+「フォーマットしますか？」と表示される場合もあるが無視してよい。  
+そのままサーバーのUSBポートに挿してBIOSからUSBブートすれば Phoenix が起動する。
+
+---
+
+## 次のステップ
+
+1. USBをPRIMERGYサーバーに挿す
+2. BIOS起動メニューでUSBを選択してブート
+3. Phoenix インストーラーが起動することを確認
+4. Nutanix CE のインストール開始
 
 ---
 
@@ -145,15 +159,15 @@ can't access tty; job control turned off
 
 ### なぜ多くのツールが失敗するのか
 
-| ツール | 書き込み方式 | 失敗理由 |
+| ツール | 書き込み方式 | 結果 |
 |--------|------------|---------|
-| Rufus（ISOモード） | ISO解凍 → FAT32展開 | ISOファイルが存在しない |
-| Rufus（DDモード） | rawイメージ書き込み | Phoenix ISOをハイブリッドISOと認識しない |
-| Balena Etcher | rawイメージ書き込み | sidecarプロセス起動失敗（AV/権限問題） |
-| Win32DiskImager | rawイメージ書き込み | 詳細不明 |
-| Ventoy normal | ISOループマウント | Phoenixが自分自身を見つけられない |
-| Ventoy grub2 | ISO grub2起動 | Phoenix独自initramfsと非互換 |
-| **PowerShell FileStream** | **rawイメージ書き込み** | **実施中** |
+| Rufus（ISOモード） | ISO解凍 → FAT32展開 | ❌ ISOファイルが存在しない |
+| Rufus（DDモード） | rawイメージ書き込み | ❌ Phoenix ISOをハイブリッドISOと認識しない |
+| Balena Etcher | rawイメージ書き込み | ❌ sidecarプロセス起動失敗（AV/権限問題） |
+| Win32DiskImager | rawイメージ書き込み | ❌ 詳細不明 |
+| Ventoy normal | ISOループマウント | ❌ Phoenixが自分自身を見つけられない |
+| Ventoy grub2 | ISO grub2起動 | ❌ Phoenix独自initramfsと非互換 |
+| **PowerShell FileStream** | **rawイメージ書き込み** | **✅ 成功** |
 
 ### Nutanix SSD誤認識の回避
 
