@@ -7,6 +7,26 @@
 
 ---
 
+## 進捗記録
+
+### 2026-06-13
+
+**ブータブルUSB作成完了**
+
+PowerShell FileStream raw write（Trial 8）でKingston DataTraveler 3.0（Disk 3）への書き込み成功。詳細は [bootable-usb-creation.md](bootable-usb-creation.md) を参照。
+
+**CSM設定が原因でブートメニューにUSBが表示されなかった**
+
+BIOS の `Boot > CSM Configuration > Launch CSM` が `Disabled`（デフォルト）のため、MBR形式のPhoenix ISOがUEFI専用モードで認識されずブートメニューに出てこなかった。`Enabled` に変更することで解消。
+
+**CSM有効化後、Phoenixのカーネルブートを確認**
+
+起動時に文字が高速スクロール → Linuxカーネルのブートメッセージであり正常動作。ただし `livecd files not found` エラーが再発するかは未確認。
+
+**次のアクション: 対処A（2本差し）を実施予定**
+
+---
+
 ## エラーログ全文（抜粋・整形）
 
 ```
